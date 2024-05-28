@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.dao.GoumaijipiaoMapper">
+    <resultMap id="BaseResultMap" type="com.spring.entity.Goumaijipiao">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+                            <result column="feijipiaobianhao" property="feijipiaobianhao" jdbcType="VARCHAR"/>
+                                    <result column="hangbanhao" property="hangbanhao" jdbcType="VARCHAR"/>
+                                    <result column="suoshuhangkonggongsi" property="suoshuhangkonggongsi" jdbcType="VARCHAR"/>
+                                    <result column="qifeishijian" property="qifeishijian" jdbcType="VARCHAR"/>
+                                    <result column="qifeichengshi" property="qifeichengshi" jdbcType="VARCHAR"/>
+                                    <result column="daodachengshi" property="daodachengshi" jdbcType="VARCHAR"/>
+                                    <result column="daodashijian" property="daodashijian" jdbcType="VARCHAR"/>
+                                    <result column="jianpiaokou" property="jianpiaokou" jdbcType="VARCHAR"/>
+                                    <result column="jipiaojiage" property="jipiaojiage" jdbcType="DECIMAL"/>
+                                    <result column="shenfenzhenghao" property="shenfenzhenghao" jdbcType="VARCHAR"/>
+                                    <result column="lianxidianhua" property="lianxidianhua" jdbcType="VARCHAR"/>
+                                    <result column="xingming" property="xingming" jdbcType="VARCHAR"/>
+                                    <result column="goumaiyonghu" property="goumaiyonghu" jdbcType="VARCHAR"/>
+                                            <result column="iszf" property="iszf" jdbcType="VARCHAR"/>
+                            <result column="feijipiaoid" property="feijipiaoid" jdbcType="INTEGER"/>
+                <result column="addtime" property="addtime" jdbcType="VARCHAR"/>
+            </resultMap>
+    <sql id="Base_Column_List">
+        id, feijipiaobianhao, hangbanhao, suoshuhangkonggongsi, qifeishijian, qifeichengshi, daodachengshi, daodashijian, jianpiaokou, jipiaojiage, shenfenzhenghao, lianxidianhua, xingming, goumaiyonghu, iszf, feijipiaoid, addtime    </sql>
+    </mapper>

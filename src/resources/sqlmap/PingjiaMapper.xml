@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.dao.PingjiaMapper">
+    <resultMap id="BaseResultMap" type="com.spring.entity.Pingjia">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+                            <result column="jiudianbianhao" property="jiudianbianhao" jdbcType="VARCHAR"/>
+                                    <result column="jiudianmingcheng" property="jiudianmingcheng" jdbcType="VARCHAR"/>
+                                    <result column="pingfen" property="pingfen" jdbcType="VARCHAR"/>
+                                    <result column="pingjia" property="pingjia" jdbcType="VARCHAR"/>
+                                    <result column="pingjiayonghu" property="pingjiayonghu" jdbcType="VARCHAR"/>
+                                                    <result column="jiudianyudingid" property="jiudianyudingid" jdbcType="INTEGER"/>
+                <result column="addtime" property="addtime" jdbcType="VARCHAR"/>
+            </resultMap>
+    <sql id="Base_Column_List">
+        id, jiudianbianhao, jiudianmingcheng, pingfen, pingjia, pingjiayonghu, jiudianyudingid, addtime    </sql>
+    </mapper>

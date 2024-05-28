@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <script src="js/jquery.js"></script>
+    <meta charset="utf-8">
+    <title>上传文件</title>
+    <script language="javascript">
+        function check() {
+            if (document.formAdd.fujian.value == "") {
+                alert("请选择文件");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+
+    <script>
+        function getPasteImage(e) {
+            var ret = false;
+            if (e.clipboardData && e.clipboardData.items) {
+                for (var i = 0; i < e.clipboardData.items.length; i++) {
+                    if (/^image\//.test(e.clipboardData.items[i].type)) {
+                        ret = true;
+                        break;
+                    }
+                }
+            }
+            return ret ? e.clipboardData.items : null;
+        }
+        function getDropImage(e) {
+            return e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : null;
+        }
+
+        var sendAndInsertImage = function (file) {
+            //模拟数据
+            var fd = new FormData();
+            fd.append('fujian', file, file.name || ('blob.' + file.type.substr('image/'.length)));
+            fd.append('type', 'ajax');
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", $('#uploadForm').attr('action'), true);
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhr.addEventListener('load', function (e) {
+                try {
+                    var data = e.target.response
+                    $('body').html(data);
+                } catch (er) {
+                }
+            });
+            xhr.send(fd);
+        };
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        $(function () {
+            var urlParam = '';
+            if(GetQueryString("result")){
+                urlParam+="Result="+GetQueryString("result");
+            }else{
+                urlParam+="callback="+GetQueryString("callback");
+            }
+            document.getElementById('uploadForm').setAttribute('action', "./upload.do?" + urlParam);
+            if (window.FormData && window.FileReader) {
+                $('#copyUpload').show();
+                $('#copyUpload').on('dragover drop paste', function (e) {
+                    if (e.type == 'dragover') if (e.originalEvent.dataTransfer.types[0] == 'Files') {
+                        e.preventDefault();
+                        return false;
+                    }
+                    e.preventDefault();
+                    var hasImg = true,
+                        items;
+
+                    //获取粘贴板文件列表或者拖放文件列表
+                    items = e.type == 'paste' ? getPasteImage(e.originalEvent) : getDropImage(e.originalEvent);
+                    console.log(items);
+                    if (items) {
+                        var len = items.length,
+                            file;
+
+                        while (len--) {
+                            hasImg = true;
+                            file = items[len];
+                            if (file.getAsFile) file = file.getAsFile();
+                            if (file && file.type && /^image\//.test(file.type) && file.size > 0) {
+                                sendAndInsertImage(file);
+                                hasImg = true;
+                            }
+                        }
+                    }
+                });
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+<form id="uploadForm" action="javascript:;" name="formAdd" method="post" enctype="multipart/form-data">
+    <input type="file" name="fujian" id="fujian" onKeyDown="javascript:alert('此信息不能手动输入');return false;"/>
+    <input type="submit" value="提交" onClick="return check()"/>
+</form>
+<div id="copyUpload" style="display: none;" contenteditable="true" readonly="readonly">点我 Ctrl + v
+上传截图，不懂截图？按Ctrl+Alt+A或者Alt+A进行截图
+</div>
+</body>
+</html>
